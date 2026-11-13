@@ -1,0 +1,560 @@
+/*
+ * Nelson Galley — Blocs éditoriaux.
+ * Chargé sur le site et dans l'éditeur. Les couleurs reprennent celles du thème
+ * (--ng-*, --cs-*) quand elles existent, sinon des valeurs par défaut.
+ */
+
+:where([class*="is-style-ng-"]) {
+  --ngb-accent: var(--ng-accent, #10b981);
+  --ngb-accent-hover: var(--ng-accent-hover, #059669);
+  --ngb-accent-strong: var(--ng-accent-strong, #065f46);
+  --ngb-soft: var(--ng-badge-bg, rgba(16, 185, 129, 0.10));
+  --ngb-soft-border: var(--ng-badge-border, rgba(16, 185, 129, 0.30));
+  --ngb-soft-text: var(--ng-badge-text, #065f46);
+  --ngb-text: var(--cs-color-primary, #111827);
+  --ngb-muted: var(--cs-color-secondary, #6b7280);
+  --ngb-border: var(--cs-color-border, #e5e7eb);
+  --ngb-surface: var(--cs-layout-background, #ffffff);
+  --ngb-night: #0f172a;
+  --ngb-radius: 20px;
+}
+
+/* ===================================================== Groupes (encadrés) */
+
+.is-style-ng-bref,
+.is-style-ng-expert,
+.is-style-ng-attention,
+.is-style-ng-solution,
+.is-style-ng-carte,
+.is-style-ng-afrique,
+.is-style-ng-sombre,
+.is-style-ng-chiffre {
+  margin-top: 2rem !important;
+  margin-bottom: 2rem !important;
+}
+:is(.is-style-ng-bref, .is-style-ng-expert, .is-style-ng-attention, .is-style-ng-solution, .is-style-ng-carte, .is-style-ng-afrique, .is-style-ng-sombre, .is-style-ng-chiffre) > * {
+  margin-top: 0;
+}
+:is(.is-style-ng-bref, .is-style-ng-expert, .is-style-ng-attention, .is-style-ng-solution, .is-style-ng-carte, .is-style-ng-afrique, .is-style-ng-sombre, .is-style-ng-chiffre) > * + * {
+  margin-top: 0.75rem !important;
+}
+:is(.is-style-ng-bref, .is-style-ng-expert, .is-style-ng-attention, .is-style-ng-solution, .is-style-ng-carte, .is-style-ng-afrique, .is-style-ng-sombre, .is-style-ng-chiffre) > :last-child {
+  margin-bottom: 0 !important;
+}
+
+/* En bref */
+.is-style-ng-bref {
+  padding: 22px 26px;
+  border: 1.5px solid var(--ngb-soft-border);
+  border-radius: var(--ngb-radius);
+  background: var(--ngb-soft);
+}
+
+/* Note d'expert */
+.is-style-ng-expert {
+  padding: 18px 22px;
+  border-left: 4px solid var(--ngb-accent);
+  border-radius: 0 14px 14px 0;
+  background: var(--ngb-soft);
+}
+.is-style-ng-expert > p:first-child,
+.is-style-ng-attention > p:first-child,
+.is-style-ng-solution > p:first-child {
+  font-size: 0.75rem !important;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.is-style-ng-expert > p:first-child { color: var(--ngb-soft-text); }
+
+/* Erreur fréquente / Solution */
+.is-style-ng-attention,
+.is-style-ng-solution {
+  padding: 18px 22px;
+  border: 1px solid;
+  border-left-width: 4px;
+  border-radius: 14px;
+}
+.is-style-ng-attention { border-color: #fecaca; border-left-color: #ef4444; background: #fef2f2; }
+.is-style-ng-attention > p:first-child { color: #b91c1c; }
+.is-style-ng-solution { border-color: #bbf7d0; border-left-color: var(--ngb-accent); background: #f0fdf4; }
+.is-style-ng-solution > p:first-child { color: #047857; }
+.is-style-ng-attention + .is-style-ng-solution { margin-top: -0.75rem !important; }
+
+/* Carte */
+.is-style-ng-carte {
+  padding: 26px 28px;
+  border: 1.5px solid var(--ngb-border);
+  border-radius: var(--ngb-radius);
+  background: var(--ngb-surface);
+  transition: border-color 0.25s, box-shadow 0.25s;
+}
+.is-style-ng-carte:hover { border-color: var(--ngb-soft-border); box-shadow: 0 16px 48px rgba(16, 185, 129, 0.10); }
+
+/* Afrique francophone : encadré sombre avec accent */
+.is-style-ng-afrique,
+.is-style-ng-sombre {
+  position: relative;
+  overflow: hidden;
+  color: #cbd5e1;
+  background: var(--ngb-night);
+}
+.is-style-ng-afrique {
+  padding: 28px 30px;
+  border-left: 4px solid var(--ngb-accent);
+  border-radius: 0 var(--ngb-radius) var(--ngb-radius) 0;
+}
+:is(.is-style-ng-afrique, .is-style-ng-sombre) :is(h2, h3, h4, strong) { color: #f9fafb !important; }
+:is(.is-style-ng-afrique, .is-style-ng-sombre) a:not(.wp-block-button__link) { color: #6ee7b7 !important; }
+
+/* Carte sombre (appel à l'action) : grille verte en filigrane */
+.is-style-ng-sombre {
+  padding: clamp(32px, 6vw, 56px) clamp(22px, 5vw, 48px);
+  border-radius: 24px;
+  text-align: center;
+}
+.is-style-ng-sombre::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(16, 185, 129, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16, 185, 129, 0.07) 1px, transparent 1px);
+  background-size: 48px 48px;
+  -webkit-mask-image: radial-gradient(80% 80%, #000 20%, transparent 100%);
+          mask-image: radial-gradient(80% 80%, #000 20%, transparent 100%);
+}
+.is-style-ng-sombre > * { position: relative; }
+.is-style-ng-sombre .wp-block-buttons { justify-content: center; }
+.is-style-ng-sombre .is-style-ng-surtitre { margin-left: auto !important; margin-right: auto !important; }
+.is-style-ng-sombre .wp-block-button.is-style-outline .wp-block-button__link {
+  color: #f9fafb !important;
+  border-color: rgba(255, 255, 255, 0.25) !important;
+}
+
+/* Chiffre clé */
+.is-style-ng-chiffre {
+  height: 100%;
+  padding: 24px;
+  border: 1.5px solid var(--ngb-soft-border);
+  border-radius: var(--ngb-radius);
+  background: var(--ngb-surface);
+  text-align: center;
+}
+.is-style-ng-chiffre > p:first-child {
+  margin: 0 !important;
+  padding: 0;
+  background: none !important;
+  color: var(--ngb-accent);
+  font-family: "Questrial", var(--cs-font-headings-family, sans-serif);
+  font-size: clamp(2.2rem, 5vw, 3rem) !important;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+.is-style-ng-chiffre > p:not(:first-child) { color: var(--ngb-muted); font-size: 0.9rem; }
+.wp-block-columns:has(> .wp-block-column > .is-style-ng-chiffre) { margin: 2rem 0; }
+.wp-block-column > .is-style-ng-chiffre { margin: 0 !important; }
+
+/* ===================================================== Textes */
+
+p.is-style-ng-chapo {
+  color: var(--ngb-text);
+  font-size: 1.2em;
+  font-weight: 500;
+  line-height: 1.65;
+}
+
+p.is-style-ng-surtitre,
+h1.is-style-ng-surtitre, h2.is-style-ng-surtitre, h3.is-style-ng-surtitre, h4.is-style-ng-surtitre {
+  display: table;
+  margin-bottom: 0.75rem !important;
+  padding: 5px 14px 5px 26px;
+  border: 0.5px solid var(--ngb-soft-border);
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 13px 50%, var(--ngb-accent) 3px, transparent 3.5px),
+    var(--ngb-soft);
+  color: var(--ngb-soft-text) !important;
+  font-family: "Poppins", sans-serif !important;
+  font-size: 0.75rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.04em !important;
+  line-height: 1.4 !important;
+  text-transform: none;
+}
+.is-style-ng-afrique .is-style-ng-surtitre,
+.is-style-ng-sombre .is-style-ng-surtitre { color: #6ee7b7 !important; }
+
+p.is-style-ng-surligne {
+  display: inline;
+  padding: 0 4px;
+  background: linear-gradient(transparent 55%, rgba(16, 185, 129, 0.28) 55%);
+  font-weight: 600;
+}
+
+h2.is-style-ng-accent, h3.is-style-ng-accent, h4.is-style-ng-accent {
+  position: relative;
+  padding-bottom: 14px;
+}
+:is(h2, h3, h4).is-style-ng-accent::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 48px;
+  height: 3px;
+  border-radius: 3px;
+  background: var(--ngb-accent);
+}
+:is(h2, h3, h4).is-style-ng-accent.has-text-align-center::after { left: 50%; transform: translateX(-50%); }
+
+/* Citation forte */
+/* !important : certains thèmes (dont Revision) donnent aux citations un fond plein et leur propre guillemet. */
+.wp-block-quote.is-style-ng-citation {
+  position: relative;
+  display: block !important;
+  margin: 2.5rem 0 !important;
+  padding: 8px 0 0 64px !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: none !important;
+  box-shadow: none !important;
+  color: var(--ngb-text) !important;
+}
+.wp-block-quote.is-style-ng-citation::before {
+  content: "“" !important;
+  position: absolute !important;
+  left: 0 !important;
+  top: -18px !important;
+  display: block !important;
+  color: var(--ngb-accent) !important;
+  font-family: Georgia, serif !important;
+  font-size: 6rem !important;
+  line-height: 1 !important;
+}
+.wp-block-quote.is-style-ng-citation::after { display: none !important; }
+.wp-block-quote.is-style-ng-citation p {
+  color: var(--ngb-text) !important;
+  font-family: "Questrial", var(--cs-font-headings-family, sans-serif);
+  font-size: clamp(1.35rem, 2.6vw, 1.75rem) !important;
+  font-style: normal;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+}
+.wp-block-quote.is-style-ng-citation cite {
+  display: block;
+  margin-top: 12px;
+  color: var(--ngb-accent) !important;
+  opacity: 1 !important;
+  font-size: 0.85rem;
+  font-style: normal;
+  font-weight: 600;
+}
+.wp-block-quote.is-style-ng-citation cite::before { content: "— "; }
+
+/* ===================================================== Listes */
+
+:is(ul, ol).is-style-ng-etapes,
+ul.is-style-ng-coches,
+ul.is-style-ng-croix,
+ul.is-style-ng-frise {
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+  list-style: none !important;
+}
+:is(.is-style-ng-etapes, .is-style-ng-coches, .is-style-ng-croix, .is-style-ng-frise) > li {
+  position: relative;
+  list-style: none !important;
+}
+:is(.is-style-ng-etapes, .is-style-ng-coches, .is-style-ng-croix, .is-style-ng-frise) > li::marker { content: none; }
+
+/* Étapes numérotées */
+.is-style-ng-etapes { counter-reset: ngb-step; }
+.is-style-ng-etapes > li {
+  min-height: 34px;
+  margin: 0 0 18px !important;
+  padding-left: 52px !important;
+  counter-increment: ngb-step;
+}
+.is-style-ng-etapes > li::before {
+  content: counter(ngb-step);
+  position: absolute;
+  left: 0;
+  top: -2px;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  background: var(--ngb-accent);
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.30);
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+.is-style-ng-etapes > li:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  left: 16px;
+  top: 36px;
+  bottom: -16px;
+  width: 2px;
+  background: var(--ngb-soft-border);
+}
+
+/* Coches / croix */
+:is(.is-style-ng-coches, .is-style-ng-croix) > li {
+  margin: 0 0 10px !important;
+  padding-left: 34px !important;
+}
+:is(.is-style-ng-coches, .is-style-ng-croix) > li::before {
+  position: absolute;
+  left: 0;
+  top: 2px;
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1;
+}
+.is-style-ng-coches > li::before { content: "✓"; background: var(--ngb-soft); color: var(--ngb-accent-hover); }
+.is-style-ng-croix > li::before { content: "✕"; background: rgba(239, 68, 68, 0.12); color: #dc2626; }
+
+/* Frise chronologique */
+.is-style-ng-frise { position: relative; margin: 1.5rem 0 !important; }
+.is-style-ng-frise::before {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  background: var(--ngb-soft-border);
+}
+.is-style-ng-frise > li { margin: 0 0 20px !important; padding-left: 36px !important; }
+.is-style-ng-frise > li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 6px;
+  width: 16px;
+  height: 16px;
+  border: 3px solid var(--ngb-surface);
+  border-radius: 999px;
+  background: var(--ngb-accent);
+  box-shadow: 0 0 0 2px var(--ngb-accent);
+}
+.is-style-ng-frise > li strong { color: var(--ngb-accent-hover); }
+
+/* ===================================================== Tableau comparatif */
+
+.wp-block-table.is-style-ng-comparatif {
+  overflow-x: auto;
+  margin: 2rem 0;
+  border: 1px solid var(--ngb-border);
+  border-radius: 16px;
+}
+.wp-block-table.is-style-ng-comparatif table { width: 100%; border-collapse: collapse; border: 0; }
+.wp-block-table.is-style-ng-comparatif :is(th, td) {
+  padding: 14px 18px;
+  border: 0 !important;
+  border-bottom: 1px solid var(--ngb-border) !important;
+  text-align: left;
+}
+.wp-block-table.is-style-ng-comparatif thead th {
+  background: var(--ngb-night);
+  color: #f9fafb;
+  font-family: "Poppins", sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+.wp-block-table.is-style-ng-comparatif tbody tr:nth-child(even) { background: var(--ngb-soft); }
+.wp-block-table.is-style-ng-comparatif tbody td:first-child { color: var(--ngb-text); font-weight: 600; }
+.wp-block-table.is-style-ng-comparatif tbody tr:last-child :is(th, td) { border-bottom: 0 !important; }
+
+/* ===================================================== FAQ dépliable */
+
+.wp-block-details.is-style-ng-faq {
+  margin: 0 0 12px !important;
+  padding: 0;
+  border: 1px solid var(--ngb-border);
+  border-radius: 14px;
+  background: var(--ngb-surface);
+  transition: border-color 0.2s;
+}
+.wp-block-details.is-style-ng-faq[open] { border-color: var(--ngb-soft-border); }
+.wp-block-details.is-style-ng-faq summary {
+  position: relative;
+  padding: 16px 52px 16px 20px;
+  color: var(--ngb-text);
+  font-weight: 600;
+  list-style: none;
+  cursor: pointer;
+}
+.wp-block-details.is-style-ng-faq summary::-webkit-details-marker { display: none; }
+.wp-block-details.is-style-ng-faq summary::after {
+  content: "+";
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  margin-top: -12px;
+  border-radius: 999px;
+  background: var(--ngb-soft);
+  color: var(--ngb-accent-hover);
+  font-weight: 700;
+  transition: transform 0.2s;
+}
+.wp-block-details.is-style-ng-faq[open] summary::after { transform: rotate(45deg); }
+.wp-block-details.is-style-ng-faq > :not(summary) { margin: 0 !important; padding: 0 20px 16px; color: var(--ngb-muted); }
+
+/* ===================================================== Code : style terminal + bouton Copier */
+
+pre.wp-block-code { position: relative; }
+pre.wp-block-code.is-style-ng-terminal {
+  padding-top: 52px !important;
+  border-radius: 14px;
+  background: #0b1220 !important;
+  color: #e2e8f0 !important;
+}
+pre.wp-block-code.is-style-ng-terminal::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 36px;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.14);
+  border-radius: 14px 14px 0 0;
+  background:
+    radial-gradient(circle at 20px 18px, #ef4444 5px, transparent 5.5px),
+    radial-gradient(circle at 38px 18px, #f59e0b 5px, transparent 5.5px),
+    radial-gradient(circle at 56px 18px, #10b981 5px, transparent 5.5px),
+    #111827;
+}
+.ngb-copy {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  z-index: 2;
+  padding: 4px 12px !important;
+  border: 1px solid rgba(148, 163, 184, 0.25) !important;
+  border-radius: 999px !important;
+  background: rgba(15, 23, 42, 0.85) !important;
+  box-shadow: none !important;
+  color: #cbd5e1 !important;
+  font-family: "Poppins", sans-serif !important;
+  font-size: 0.72rem !important;
+  font-weight: 500 !important;
+  line-height: 1.6 !important;
+  cursor: pointer;
+  opacity: 0.85;
+  transition: opacity 0.2s, color 0.2s;
+}
+.ngb-copy:hover,
+.ngb-copy.is-copied { opacity: 1; color: #6ee7b7 !important; }
+
+/* ===================================================== Images */
+
+.wp-block-image.is-style-ng-cadre img {
+  border-radius: 16px;
+  box-shadow: 0 18px 50px rgba(15, 23, 42, 0.14);
+}
+
+/* Fenêtre de navigateur */
+.wp-block-image.is-style-ng-navigateur {
+  overflow: hidden;
+  padding-top: 34px;
+  border: 1px solid var(--ngb-border);
+  border-radius: 14px;
+  background:
+    radial-gradient(circle at 18px 17px, #ef4444 5px, transparent 5.5px),
+    radial-gradient(circle at 36px 17px, #f59e0b 5px, transparent 5.5px),
+    radial-gradient(circle at 54px 17px, #10b981 5px, transparent 5.5px),
+    linear-gradient(var(--cs-color-highlight-background, #f3f4f6), var(--cs-color-highlight-background, #f3f4f6)) top / 100% 34px no-repeat,
+    var(--ngb-surface);
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.14);
+}
+.wp-block-image.is-style-ng-navigateur img { display: block; width: 100%; border-radius: 0 !important; }
+
+/* Écran de téléphone */
+.wp-block-image.is-style-ng-telephone {
+  position: relative;
+  max-width: 300px;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  overflow: hidden;
+  border: 10px solid var(--ngb-night);
+  border-radius: 40px;
+  background: var(--ngb-night);
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.25);
+}
+.wp-block-image.is-style-ng-telephone::before {
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  z-index: 1;
+  width: 34%;
+  height: 22px;
+  border-radius: 999px;
+  background: var(--ngb-night);
+  transform: translateX(-50%);
+}
+.wp-block-image.is-style-ng-telephone img { display: block; width: 100%; border-radius: 30px !important; }
+
+/* Image vide dans l'éditeur : garder une hauteur pour voir le cadre */
+.block-editor-block-list__block.wp-block-image:is(.is-style-ng-navigateur, .is-style-ng-telephone, .is-style-ng-cadre) .components-placeholder { min-height: 180px; }
+
+/* ===================================================== Séparateur, colonnes */
+
+.wp-block-separator.is-style-ng-degrade {
+  width: 100% !important;
+  max-width: none !important;
+  height: 2px !important;
+  margin: 3rem 0 !important;
+  border: 0 !important;
+  background: linear-gradient(90deg, transparent, var(--ngb-accent), transparent) !important;
+  opacity: 1;
+}
+
+.wp-block-columns.is-style-ng-cartes { gap: 20px; margin: 2rem 0; }
+.wp-block-columns.is-style-ng-cartes > .wp-block-column {
+  padding: 24px 26px;
+  border: 1.5px solid var(--ngb-border);
+  border-radius: var(--ngb-radius);
+  background: var(--ngb-surface);
+}
+.wp-block-columns.is-style-ng-cartes > .wp-block-column > :first-child { margin-top: 0; }
+.wp-block-columns.is-style-ng-cartes > .wp-block-column > :last-child { margin-bottom: 0; }
+
+/* ===================================================== Mode sombre (thème Revision) */
+
+body[data-scheme="dark"] .is-style-ng-attention { border-color: rgba(239, 68, 68, 0.35); background: rgba(239, 68, 68, 0.10); }
+body[data-scheme="dark"] .is-style-ng-attention > p:first-child { color: #fca5a5; }
+body[data-scheme="dark"] .is-style-ng-solution { border-color: rgba(16, 185, 129, 0.35); background: rgba(16, 185, 129, 0.10); }
+body[data-scheme="dark"] .is-style-ng-solution > p:first-child { color: #6ee7b7; }
+body[data-scheme="dark"] :is(.is-style-ng-afrique, .is-style-ng-sombre) { background: #020617; border-color: var(--ngb-accent); }
+@media (prefers-color-scheme: dark) {
+  body[data-scheme="auto"] .is-style-ng-attention { border-color: rgba(239, 68, 68, 0.35); background: rgba(239, 68, 68, 0.10); }
+  body[data-scheme="auto"] .is-style-ng-attention > p:first-child { color: #fca5a5; }
+  body[data-scheme="auto"] .is-style-ng-solution { border-color: rgba(16, 185, 129, 0.35); background: rgba(16, 185, 129, 0.10); }
+  body[data-scheme="auto"] .is-style-ng-solution > p:first-child { color: #6ee7b7; }
+  body[data-scheme="auto"] :is(.is-style-ng-afrique, .is-style-ng-sombre) { background: #020617; border-color: var(--ngb-accent); }
+}
+
+/* ===================================================== Mobile */
+
+@media (max-width: 600px) {
+  .wp-block-quote.is-style-ng-citation { padding-left: 44px; }
+  .wp-block-quote.is-style-ng-citation::before { font-size: 4.5rem; }
+  .is-style-ng-afrique { padding: 22px 20px; }
+}
