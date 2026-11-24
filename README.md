@@ -113,3 +113,6 @@ L'action GitHub construit `nelson-galley-blocs.zip` et publie la release ; WordP
 ## Licence
 
 [GPL-2.0-or-later](LICENSE). Développé par [Nelson Galley](https://www.nelsongalley.online/), développeur web et designer UX/UI à Lomé, Togo.
+
+
+https://drive.google.com/file/d/192lZ0-4DIIuGshj20vKrU8xsRtZfia9d/view?usp=drivesdk
